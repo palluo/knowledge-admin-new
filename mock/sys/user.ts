@@ -5,8 +5,8 @@ function createFakeUserList() {
   return [
     {
       userId: '1',
-      username: 'vben',
-      realName: 'Vben Admin',
+      name: 'vben',
+      nickname: 'Vben Admin',
       desc: 'manager',
       password: '123456',
       token: 'fakeToken1',
@@ -19,9 +19,9 @@ function createFakeUserList() {
     },
     {
       userId: '2',
-      username: 'test',
+      name: 'test',
       password: '123456',
-      realName: 'test user',
+      nickname: 'test user',
       desc: 'tester',
       token: 'fakeToken2',
       roles: [
@@ -46,20 +46,20 @@ export default [
     timeout: 200,
     method: 'post',
     response: ({ body }) => {
-      const { username, password } = body;
+      const { name, password } = body;
       const checkUser = createFakeUserList().find(
-        (item) => item.username === username && password === item.password
+        (item) => item.name === name && password === item.password
       );
       if (!checkUser) {
         return resultError('Incorrect account or password！');
       }
-      const { userId, username: _username, token, realName, desc, roles } = checkUser;
+      const { userId, name: _username, token, nickname, desc, roles } = checkUser;
       return resultSuccess({
         roles,
         userId,
-        username: _username,
+        name: _username,
         token,
-        realName,
+        nickname,
         desc,
       });
     },

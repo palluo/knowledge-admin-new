@@ -20,7 +20,7 @@
           <div :class="`${prefixCls}-entry__header`">
             <img :src="headerImg" :class="`${prefixCls}-entry__header-img`" />
             <p :class="`${prefixCls}-entry__header-name`">
-              {{ realName }}
+              {{ nickname }}
             </p>
           </div>
           <InputPassword :placeholder="t('sys.lock.placeholder')" v-model:value="password" />
@@ -92,9 +92,9 @@
 
       const { t } = useI18n();
 
-      const realName = computed(() => {
-        const { realName } = userStore.getUserInfoState || {};
-        return realName;
+      const nickname = computed(() => {
+        const { nickname } = userStore.getUserInfoState || {};
+        return nickname;
       });
 
       /**
@@ -125,7 +125,7 @@
 
       return {
         goLogin,
-        realName,
+        nickname,
         unLock,
         errMsgRef,
         loadingRef,

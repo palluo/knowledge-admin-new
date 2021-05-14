@@ -1,5 +1,12 @@
+<!--
+ * @Autor: luowy
+ * @Date: 2021-02-20 16:00:14
+ * @LastEditors: luowy
+ * @LastEditTime: 2021-03-01 14:16:24
+ * @Description:
+-->
 <template>
-  <div>
+  <div style="position: absolute; width: 100%; height: 100%">
     <RouterView>
       <template #default="{ Component, route }">
         <transition

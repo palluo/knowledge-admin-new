@@ -1,49 +1,37 @@
+/*
+ * @Autor: luowy
+ * @Date: 2021-02-20 16:00:13
+ * @LastEditors: luowy
+ * @LastEditTime: 2021-02-20 16:54:37
+ * @Description:
+ */
 import { defHttp } from '/@/utils/http/axios';
-import {
-  LoginParams,
-  LoginResultModel,
-  GetUserInfoByUserIdParams,
-  GetUserInfoByUserIdModel,
-} from './model/userModel';
-import { ErrorMessageMode } from '/@/utils/http/axios/types';
+import { LoginParams, GetUserInfoByUserIdModel } from './model/userModel';
 
 enum Api {
-  Login = '/login',
-  GetUserInfoById = '/getUserInfoById',
-  GetPermCodeByUserId = '/getPermCodeByUserId',
+  GetPublicKey = '/user/getPublicKey',
+  Login = '/user/login',
 }
 
 /**
  * @description: user login api
  */
-export function loginApi(params: LoginParams, mode: ErrorMessageMode = 'modal') {
-  return defHttp.request<LoginResultModel>(
+export function loginApi(params: LoginParams) {
+  return defHttp.request<GetUserInfoByUserIdModel>(
     {
       url: Api.Login,
       method: 'POST',
       params,
     },
     {
-      errorMessageMode: mode,
+      errorMessageMode: 'modal',
     }
   );
 }
 
-/**
- * @description: getUserInfoById
- */
-export function getUserInfoById(params: GetUserInfoByUserIdParams) {
-  return defHttp.request<GetUserInfoByUserIdModel>({
-    url: Api.GetUserInfoById,
+export function getPublicKey() {
+  return defHttp.request({
+    url: Api.GetPublicKey,
     method: 'GET',
-    params,
-  });
-}
-
-export function getPermCodeByUserId(params: GetUserInfoByUserIdParams) {
-  return defHttp.request<string[]>({
-    url: Api.GetPermCodeByUserId,
-    method: 'GET',
-    params,
   });
 }

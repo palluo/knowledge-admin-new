@@ -10,7 +10,7 @@
       <div :class="`${prefixCls}__header`">
         <img :src="headerImg" :class="`${prefixCls}__header-img`" />
         <p :class="`${prefixCls}__header-name`">
-          {{ getRealName }}
+          {{ getnickname }}
         </p>
       </div>
 
@@ -42,8 +42,8 @@
       const { t } = useI18n();
       const { prefixCls } = useDesign('header-lock-modal');
 
-      const getRealName = computed(() => {
-        return userStore.getUserInfoState?.realName;
+      const getnickname = computed(() => {
+        return userStore.getUserInfoState?.nickname;
       });
       const [register, { closeModal }] = useModalInner();
 
@@ -74,7 +74,7 @@
       return {
         t,
         prefixCls,
-        getRealName,
+        getnickname,
         register,
         registerForm,
         handleLock,

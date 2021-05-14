@@ -1,3 +1,10 @@
+/*
+ * @Autor: luowy
+ * @Date: 2021-02-20 16:00:14
+ * @LastEditors: luowy
+ * @LastEditTime: 2021-02-20 17:14:09
+ * @Description:
+ */
 import type { Menu } from '/@/router/types';
 import type { PropType } from 'vue';
 
@@ -5,6 +12,11 @@ import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
 import { ThemeEnum } from '/@/enums/appEnum';
 import { propTypes } from '/@/utils/propTypes';
 export const basicProps = {
+  // 当前选中的菜单项 key 数组
+  selectedKeys: {
+    type: Array as PropType<string[]>,
+    default: () => [],
+  },
   items: {
     type: Array as PropType<Menu[]>,
     default: () => [],

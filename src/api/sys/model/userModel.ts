@@ -1,8 +1,15 @@
+/*
+ * @Autor: luowy
+ * @Date: 2021-02-20 16:00:13
+ * @LastEditors: luowy
+ * @LastEditTime: 2021-02-22 13:03:29
+ * @Description:
+ */
 /**
  * @description: Login interface parameters
  */
 export interface LoginParams {
-  username: string;
+  name: string;
   password: string;
 }
 
@@ -30,14 +37,15 @@ export interface LoginResultModel {
 /**
  * @description: Get user information return value
  */
+
 export interface GetUserInfoByUserIdModel {
-  roles: RoleInfo[];
+  role: RoleInfo;
   // 用户id
-  userId: string | number;
+  id: string;
   // 用户名
-  username: string;
+  name: string;
   // 真实名字
-  realName: string;
+  nickname: string;
   // 介绍
   desc?: string;
 }

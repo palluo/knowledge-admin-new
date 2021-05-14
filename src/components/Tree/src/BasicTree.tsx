@@ -21,6 +21,7 @@ interface State {
   expandedKeys: Keys;
   selectedKeys: Keys;
   checkedKeys: CheckKeys;
+  loadData: any;
 }
 const prefixCls = 'basic-tree';
 export default defineComponent({
@@ -32,6 +33,7 @@ export default defineComponent({
       expandedKeys: props.expandedKeys || [],
       selectedKeys: props.selectedKeys || [],
       checkedKeys: props.checkedKeys || [],
+      loadData: props.loadData || null,
     });
 
     const treeDataRef = ref<TreeItem[]>([]);
@@ -66,6 +68,7 @@ export default defineComponent({
         ...attrs,
         ...props,
         expandedKeys: state.expandedKeys,
+        loadData: state.loadData,
         selectedKeys: state.selectedKeys,
         checkedKeys: state.checkedKeys,
         replaceFields: unref(getReplaceFields),
@@ -120,7 +123,7 @@ export default defineComponent({
         const propsData = omit(item, 'title');
         const anyItem = item as any;
         return (
-          <Tree.TreeNode {...propsData} key={anyItem?.[keyField]}>
+          <Tree.TreeNode {...propsData} key={anyItem?.[keyField]} dataRef={anyItem}>
             {{
               title: () => (
                 <span class={`${prefixCls}-title`}>

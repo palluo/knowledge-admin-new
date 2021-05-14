@@ -44,18 +44,18 @@ export function wrapperEnv(envConf: any): ViteEnv {
   const ret: any = {};
 
   for (const envName of Object.keys(envConf)) {
-    let realName = envConf[envName].replace(/\\n/g, '\n');
-    realName = realName === 'true' ? true : realName === 'false' ? false : realName;
+    let nickname = envConf[envName].replace(/\\n/g, '\n');
+    nickname = nickname === 'true' ? true : nickname === 'false' ? false : nickname;
     if (envName === 'VITE_PORT') {
-      realName = Number(realName);
+      nickname = Number(nickname);
     }
     if (envName === 'VITE_PROXY') {
       try {
-        realName = JSON.parse(realName);
+        nickname = JSON.parse(nickname);
       } catch (error) {}
     }
-    ret[envName] = realName;
-    process.env[envName] = realName;
+    ret[envName] = nickname;
+    process.env[envName] = nickname;
   }
   return ret;
 }

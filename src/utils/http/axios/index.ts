@@ -180,6 +180,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
         // 基础接口地址
         // baseURL: globSetting.apiUrl,
         // 接口可能会有通用的地址部分，可以统一抽取出来
+        withCredentials: true,
         prefixUrl: prefix,
         headers: { 'Content-Type': ContentTypeEnum.JSON },
         // 如果是form-data格式

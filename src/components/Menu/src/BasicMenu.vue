@@ -9,6 +9,7 @@
     @openChange="handleOpenChange"
     :class="getMenuClass"
     @click="handleMenuClick"
+    @select="handleMenuSelect"
     :subMenuOpenDelay="0.2"
     v-bind="getInlineCollapseOptions"
   >
@@ -50,7 +51,7 @@
       // BasicSubMenuItem: createAsyncComponent(() => import('./components/BasicSubMenuItem.vue')),
     },
     props: basicProps,
-    emits: ['menuClick'],
+    emits: ['menuClick', 'menuSelect'],
     setup(props, { emit }) {
       const isClickGo = ref(false);
       const currentActiveMenu = ref('');
@@ -58,9 +59,16 @@
       const menuState = reactive<MenuState>({
         defaultSelectedKeys: [],
         openKeys: [],
-        selectedKeys: [],
+        selectedKeys: props.selectedKeys,
         collapsedOpenKeys: [],
       });
+      // watch(
+      //   () => props.selectedKeys,
+      //   () => {
+      //     console.log(props.selectedKeys);
+      //     menuState.selectedKeys = props.selectedKeys;
+      //   }
+      // );
 
       const { prefixCls } = useDesign('basic-menu');
       const { items, mode, accordion } = toRefs(props);
@@ -141,6 +149,19 @@
         menuState.selectedKeys = [key];
       }
 
+      async function handleMenuSelect({
+        item,
+      }: {
+        item: any;
+        keyPath: string[];
+        selectedKeys: string[];
+      }) {
+        //   console.log(item);
+        //   console.log(keyPath);
+        //   console.log(selectedKeys);
+        emit('menuSelect', item);
+      }
+
       async function handleMenuChange(route?: RouteLocationNormalizedLoaded) {
         if (unref(isClickGo)) {
           isClickGo.value = false;
@@ -162,6 +183,7 @@
         prefixCls,
         getIsHorizontal,
         handleMenuClick,
+        handleMenuSelect,
         getInlineCollapseOptions,
         getMenuClass,
         handleOpenChange,

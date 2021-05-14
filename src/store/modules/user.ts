@@ -1,8 +1,4 @@
-import type {
-  LoginParams,
-  GetUserInfoByUserIdModel,
-  GetUserInfoByUserIdParams,
-} from '/@/api/sys/model/userModel';
+import type { LoginParams, GetUserInfoByUserIdModel } from '/@/api/sys/model/userModel';
 
 import store from '/@/store/index';
 import { VuexModule, Module, getModule, Mutation, Action } from 'vuex-module-decorators';
@@ -16,12 +12,12 @@ import { useMessage } from '/@/hooks/web/useMessage';
 
 import router from '/@/router';
 
-import { loginApi, getUserInfoById } from '/@/api/sys/user';
+import { getPublicKey, loginApi } from '/@/api/sys/user';
 
 import { setLocal, getLocal, getSession, setSession } from '/@/utils/helper/persistent';
 import { useProjectSetting } from '/@/hooks/setting';
 import { useI18n } from '/@/hooks/web/useI18n';
-import { ErrorMessageMode } from '/@/utils/http/axios/types';
+import JSEncrypt from 'jsencrypt';
 
 export type UserInfo = Omit<GetUserInfoByUserIdModel, 'roles'>;
 
@@ -95,39 +91,29 @@ class User extends VuexModule {
    * @description: login
    */
   @Action
-  async login(
-    params: LoginParams & {
-      goHome?: boolean;
-      mode?: ErrorMessageMode;
-    }
-  ): Promise<GetUserInfoByUserIdModel | null> {
+  async login(params: LoginParams, goHome = true): Promise<GetUserInfoByUserIdModel | null> {
+    let userInfo: GetUserInfoByUserIdModel | null = null;
     try {
-      const { goHome = true, mode, ...loginParams } = params;
-      const data = await loginApi(loginParams, mode);
-
-      const { token, userId } = data;
-
-      // save token
-      this.commitTokenState(token);
-
-      // get user info
-      const userInfo = await this.getUserInfoAction({ userId });
-
-      goHome && (await router.replace(PageEnum.BASE_HOME));
+      const publicKey = await getPublicKey();
+      if (publicKey) {
+        const encryptStr = new JSEncrypt({});
+        encryptStr.setPublicKey(publicKey); // 设置 加密公钥
+        const encryptPassword: any = encryptStr.encrypt(params.password); // 进行加密
+        params.password = encryptPassword;
+        userInfo = await loginApi(params);
+        if (userInfo) {
+          const { role } = userInfo;
+          const roleList = [role.value] as RoleEnum[];
+          this.commitUserInfoState(userInfo);
+          this.commitRoleListState(roleList);
+          goHome && (await router.replace(PageEnum.BASE_HOME));
+        }
+      }
       return userInfo;
     } catch (error) {
+      console.log(error);
       return null;
     }
-  }
-
-  @Action
-  async getUserInfoAction({ userId }: GetUserInfoByUserIdParams) {
-    const userInfo = await getUserInfoById({ userId });
-    const { roles } = userInfo;
-    const roleList = roles.map((item) => item.value) as RoleEnum[];
-    this.commitUserInfoState(userInfo);
-    this.commitRoleListState(roleList);
-    return userInfo;
   }
 
   /**

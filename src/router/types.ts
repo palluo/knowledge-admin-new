@@ -1,3 +1,10 @@
+/*
+ * @Autor: luowy
+ * @Date: 2021-02-20 16:00:14
+ * @LastEditors: luowy
+ * @LastEditTime: 2021-02-20 16:44:19
+ * @Description:
+ */
 import type { RouteRecordRaw } from 'vue-router';
 import { RoleEnum } from '/@/enums/roleEnum';
 
@@ -77,6 +84,9 @@ export interface Menu {
   tag?: MenuTag;
 
   hideMenu?: boolean;
+
+  // 任意的数据
+  data?: any;
 }
 
 export interface MenuModule {

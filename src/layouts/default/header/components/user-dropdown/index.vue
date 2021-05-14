@@ -3,7 +3,7 @@
     <span :class="[prefixCls, `${prefixCls}--${theme}`]">
       <img :class="`${prefixCls}__header`" :src="headerImg" />
       <span :class="`${prefixCls}__info`">
-        <span :class="`${prefixCls}__name anticon`">{{ getUserInfo.realName }}</span>
+        <span :class="`${prefixCls}__name anticon`">{{ getUserInfo.nickname }}</span>
       </span>
     </span>
 
@@ -71,8 +71,8 @@
       const { getShowDoc } = useHeaderSetting();
 
       const getUserInfo = computed(() => {
-        const { realName = '', desc } = userStore.getUserInfoState || {};
-        return { realName, desc };
+        const { nickname = '', desc } = userStore.getUserInfoState || {};
+        return { nickname, desc };
       });
 
       const [register, { openModal }] = useModal();

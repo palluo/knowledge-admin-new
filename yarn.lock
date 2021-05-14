@@ -5565,6 +5565,11 @@ js-yaml@^3.13.1:
     argparse "^1.0.7"
     esprima "^4.0.0"
 
+jsencrypt@^3.0.0-rc.1:
+  version "3.0.1"
+  resolved "https://registry.npm.taobao.org/jsencrypt/download/jsencrypt-3.0.1.tgz#e7f2525d79fb02eea8310c3838c9db164f1ef43f"
+  integrity sha1-5/JSXXn7Au6oMQw4OMnbFk8e9D8=
+
 jsesc@^2.5.1:
   version "2.5.2"
   resolved "https://registry.npmjs.org/jsesc/-/jsesc-2.5.2.tgz#80564d2e483dacf6e8ef209650a67df3f0c283a4"

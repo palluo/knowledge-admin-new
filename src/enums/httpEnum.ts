@@ -1,8 +1,15 @@
+/*
+ * @Autor: luowy
+ * @Date: 2021-02-20 16:00:14
+ * @LastEditors: luowy
+ * @LastEditTime: 2021-02-22 11:06:55
+ * @Description:
+ */
 /**
  * @description: Request result set
  */
 export enum ResultEnum {
-  SUCCESS = 0,
+  SUCCESS = 200,
   ERROR = 1,
   TIMEOUT = 401,
   TYPE = 'success',

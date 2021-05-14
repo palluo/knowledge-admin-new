@@ -1,3 +1,10 @@
+/*
+ * @Autor: luowy
+ * @Date: 2021-02-20 16:00:14
+ * @LastEditors: luowy
+ * @LastEditTime: 2021-02-20 17:19:34
+ * @Description:
+ */
 import { PropType } from 'vue';
 import type { ReplaceFields, TreeItem, ActionItem, Keys, CheckKeys } from './types';
 import type { ContextMenuItem } from '/@/hooks/web/useContextMenu';
@@ -38,6 +45,10 @@ export const basicProps = {
 
   rightMenuList: {
     type: Array as PropType<ContextMenuItem[]>,
+  },
+  loadData: {
+    type: Function,
+    default: null,
   },
 };
 

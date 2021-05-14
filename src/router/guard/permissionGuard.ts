@@ -3,7 +3,7 @@ import type { Router, RouteRecordRaw } from 'vue-router';
 import { permissionStore } from '/@/store/modules/permission';
 
 import { PageEnum } from '/@/enums/pageEnum';
-import { getToken } from '/@/utils/auth';
+import { getUserId } from '/@/utils/auth';
 
 import { PAGE_NOT_FOUND_ROUTE } from '/@/router/constant';
 
@@ -25,10 +25,10 @@ export function createPermissionGuard(router: Router) {
       return;
     }
 
-    const token = getToken();
+    const userid = getUserId();
 
     // token does not exist
-    if (!token) {
+    if (!userid) {
       // You can access without permission. You need to set the routing meta.ignoreAuth to true
       if (
         to.meta.ignoreAuth

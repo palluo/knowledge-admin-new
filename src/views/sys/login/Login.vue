@@ -12,14 +12,14 @@
 
           <a-form class="login-form__main" :model="formData" :rules="formRules" ref="formRef">
             <a-form-item name="account">
-              <a-input size="large" v-model:value="formData.account" placeholder="username: vben" />
+              <a-input size="large" v-model:value="formData.account" placeholder="name" />
             </a-form-item>
             <a-form-item name="password">
               <a-input-password
                 size="large"
                 visibilityToggle
                 v-model:value="formData.password"
-                placeholder="password: 123456"
+                placeholder="password"
               />
             </a-form-item>
 
@@ -95,8 +95,8 @@
       const { t } = useI18n();
 
       const formData = reactive({
-        account: 'vben',
-        password: '123456',
+        account: '',
+        password: '',
       });
 
       const formState = reactive({
@@ -119,18 +119,19 @@
           const userInfo = await userStore.login(
             toRaw({
               password: data.password,
-              username: data.account,
+              name: data.account,
             })
           );
           if (userInfo) {
             notification.success({
-              message: t('sys.login.loginSuccessTitle'),
-              description: `${t('sys.login.loginSuccessDesc')}: ${userInfo.realName}`,
+              message: '登录成功',
+              description: `欢迎回来: ${userInfo.nickname}`,
               duration: 3,
             });
           }
         } catch (error) {
         } finally {
+          // resetVerify();
           formState.loading = false;
         }
       }
